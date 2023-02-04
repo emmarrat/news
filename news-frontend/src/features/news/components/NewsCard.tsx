@@ -26,7 +26,7 @@ const NewsCard: React.FC<Props> = ({news, onRemove, loading}) => {
   }
   return (
     <>
-      <Card sx={{display: 'flex', justifyContent: 'space-between', width: '600px', minHeight: '150px', mb:3}}>
+      <Card sx={{display: 'flex', justifyContent: 'space-between', width: '600px', minHeight: '150px', mb: 3}}>
         <CardMedia
           component="img"
           sx={{width: 151}}
@@ -34,7 +34,7 @@ const NewsCard: React.FC<Props> = ({news, onRemove, loading}) => {
           alt={news.title}
         />
         <Box sx={{display: 'flex', flexDirection: 'column', width: '100%'}}>
-          <CardContent sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+          <CardContent sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%'}}>
             <Typography component="div" variant="h5" textTransform="uppercase" my={2}>{news.title}</Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
               Was published : <b> {dayjs(news.datetime).format('MMMM DD, YYYY, HH:mm')}</b>
@@ -48,7 +48,7 @@ const NewsCard: React.FC<Props> = ({news, onRemove, loading}) => {
                 to={'/full-article/' + news.id}
               >
                 Read full article
-                <ArrowForwardIosIcon sx={{ml:2}}/>
+                <ArrowForwardIosIcon sx={{ml: 2}}/>
               </Button>
               <Button
                 variant="text"
@@ -57,7 +57,7 @@ const NewsCard: React.FC<Props> = ({news, onRemove, loading}) => {
                 disabled={loading ? loading === news.id.toString() : false}
               >
                 Delete
-                <DeleteOutlineOutlinedIcon sx={{ml:2}}/>
+                <DeleteOutlineOutlinedIcon sx={{ml: 2}}/>
               </Button>
             </Box>
           </CardActions>

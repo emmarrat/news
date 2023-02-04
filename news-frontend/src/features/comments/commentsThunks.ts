@@ -21,5 +21,5 @@ export const createComment = createAsyncThunk<void, CommentsFromUser>(
   'comments/createComment',
   async (comment) => {
     await axiosApi.post('comments', comment);
-}
+  }
 );

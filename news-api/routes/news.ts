@@ -68,7 +68,7 @@ newsRouter.delete('/:id', async (req, res) => {
     const [news] = result[0] as NewsFull[];
     await connection.query(deleteQuery, [id]);
     res.send({message: 'News deleted'});
-    if(news.image !== null) {
+    if (news.image !== null) {
       const fs = require('fs');
       const link = `${config.publicPath}/${news.image}`;
       fs.unlink(link, (err: Error) => {

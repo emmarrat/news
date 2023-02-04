@@ -34,14 +34,14 @@ const OneNews = () => {
     dispatch(fetchComments(id));
   }, [dispatch]);
 
-  const removeComment = async (commentId:string, news_id: string) => {
+  const removeComment = async (commentId: string, news_id: string) => {
     if (window.confirm('Please, confirm the removal of the selected comment')) {
       await dispatch(deleteComment(commentId));
       await dispatch(fetchComments(news_id));
     }
   };
 
-  const postComment = async(comment: CommentsFromUser, news_id: string) => {
+  const postComment = async (comment: CommentsFromUser, news_id: string) => {
     await dispatch(createComment(comment));
     await dispatch(fetchComments(news_id));
   };
@@ -51,17 +51,17 @@ const OneNews = () => {
       <Grid item mt={5} mb={3}>
         <Typography variant="h6" textTransform="uppercase" textAlign="center">Comments:</Typography>
       </Grid>
-      {fetchingLoading ? <CircularProgress color="success" /> :
+      {fetchingLoading ? <CircularProgress color="success"/> :
         comments.map(c => (
           <CommentCard comment={c} key={c.id} onRemove={removeComment} loading={deleteLoading}/>
         ))}
     </>
   );
 
-  if(comments.length === 0) {
+  if (comments.length === 0) {
     commentsContent = (
       <Typography variant="h5" textAlign="center" my={2}>
-       No comments under this article :(
+        No comments under this article :(
       </Typography>
     )
   }
@@ -85,7 +85,10 @@ const OneNews = () => {
                       </Typography>
                   </Grid>
                   <Grid item mr={5}>
-                      <img src={cardImage} alt={news.title} style={{width: '250px', height: 'auto', borderRadius: '10px'}}/>
+                      <img src={cardImage}
+                           alt={news.title}
+                           style={{width: '250px', height: 'auto', borderRadius: '10px'}}
+                      />
                   </Grid>
               </Grid>
               <Grid item mb={5}>

@@ -24,13 +24,13 @@ const News = () => {
 
   let newsList = (
     <>
-      {fetchLoading ? <CircularProgress color="success" sx={{mt: 5}} /> : news.map(n => (
+      {fetchLoading ? <CircularProgress color="success" sx={{mt: 5}}/> : news.map(n => (
         <NewsCard news={n} key={n.id} onRemove={removeNews} loading={deleteLoading}/>
       ))}
     </>
   );
 
-  if(news.length === 0) {
+  if (news.length === 0) {
     newsList = (
       <Typography variant="h5" textAlign="center" my={5}>
         No articles! Please add new!
