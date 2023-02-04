@@ -25,11 +25,13 @@ commentsRouter.post('/', async (req, res) => {
   }
   const {news_id, author, text} = req.body;
 
+  const fixedAuthor = author === '' ? null : author;
+
   const connection = mysqlDb.getConnection();
   try {
     const sql = connection.format(
       'INSERT INTO comments (news_id, author, text) VALUES (?, ?, ?)',
-      [news_id, author, text]
+      [news_id, fixedAuthor, text]
     );
     const result = await connection.query(sql);
     res.send({message: 'Comment was successfully posted!', info: result});
