@@ -20,7 +20,7 @@ const AppToolbar = () => {
           <Link to="/">JS-17 news</Link>
         </Typography>
         <Typography variant="h6" textAlign="right" component="p" sx={{flexGrow: 1}}>
-          <Link to="/new-post">Add new post</Link>
+          <Link to="/new-article">Add new post</Link>
         </Typography>
       </Toolbar>
     </AppBar>
