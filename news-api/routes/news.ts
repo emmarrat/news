@@ -68,12 +68,13 @@ newsRouter.delete('/:id', async (req, res) => {
     const [news] = result[0] as NewsFull[];
     await connection.query(deleteQuery, [id]);
     res.send({message: 'News deleted'});
-
-    const fs = require('fs');
-    const link = `${config.publicPath}/${news.image}`;
-    fs.unlink(link, (err: Error) => {
-      if (err) throw err;
-    });
+    if(news.image !== null) {
+      const fs = require('fs');
+      const link = `${config.publicPath}/${news.image}`;
+      fs.unlink(link, (err: Error) => {
+        if (err) throw err;
+      });
+    }
   } catch (e) {
     res.status(400).send({
       message: 'Error!',
