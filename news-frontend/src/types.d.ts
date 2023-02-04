@@ -8,3 +8,4 @@ export interface News {
 export interface NewsFull extends News {
   content: string;
 }
+
