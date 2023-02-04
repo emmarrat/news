@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {Grid, TextField, Typography} from "@mui/material";
 import {CommentsFromUser} from "../../../types";
+import {LoadingButton} from "@mui/lab";
 
 interface Props {
-  news_id: number
-  onSubmit: (comment: CommentsFromUser, news_id: string) => void
+  news_id: number;
+  onSubmit: (comment: CommentsFromUser, news_id: string) => void;
+  loading: boolean;
 }
 
-const CommentsForm: React.FC<Props> = ({news_id, onSubmit}) => {
+const CommentsForm: React.FC<Props> = ({news_id, onSubmit, loading}) => {
   const [comment, setComment] = useState<CommentsFromUser>({
     author: '',
     text: '',
@@ -16,7 +18,6 @@ const CommentsForm: React.FC<Props> = ({news_id, onSubmit}) => {
 
   const submitFormHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(comment);
     onSubmit(comment, news_id.toString());
     setComment(prevState => {
       return {
@@ -64,7 +65,15 @@ const CommentsForm: React.FC<Props> = ({news_id, onSubmit}) => {
             />
           </Grid>
           <Grid item xs>
-            <Button type="submit" color="primary" variant="contained">Post</Button>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              loading={loading}
+              disabled={loading}
+              color="success"
+            >
+              Post
+            </LoadingButton>
           </Grid>
         </Grid>
       </form>

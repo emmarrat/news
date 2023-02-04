@@ -1,14 +1,19 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {Grid, Typography} from "@mui/material";
+import {CircularProgress, Grid, Typography} from "@mui/material";
 import {fetchOneNews} from "./newsThunks";
 import {selectOneNews} from "./newsSlice";
 import dayjs from "dayjs";
 import {apiURL} from '../../constants';
 import noImageAvailable from "../../assets/images/noImageAvailable.jpeg";
 import {createComment, deleteComment, fetchComments} from "../comments/commentsThunks";
-import {selectComments} from "../comments/commentsSlice";
+import {
+  selectComments,
+  selectCreatingComments,
+  selectFetchingComments,
+  selectRemovingComments
+} from "../comments/commentsSlice";
 import CommentCard from "../comments/components/CommentCard";
 import CommentsForm from "../comments/components/CommentsForm";
 import {CommentsFromUser} from "../../types";
@@ -16,10 +21,13 @@ import {CommentsFromUser} from "../../types";
 
 const OneNews = () => {
   const {id} = useParams() as { id: string };
-  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const news = useAppSelector(selectOneNews);
   const comments = useAppSelector(selectComments);
+  const createLoading = useAppSelector(selectCreatingComments);
+  const fetchingLoading = useAppSelector(selectFetchingComments);
+  const deleteLoading = useAppSelector(selectRemovingComments);
+
 
   useEffect(() => {
     dispatch(fetchOneNews(id));
@@ -68,12 +76,13 @@ const OneNews = () => {
                   <Typography variant="h6" textTransform="uppercase" textAlign="center">Comments</Typography>
               </Grid>
               <Grid container flexDirection="column" alignItems="center" mb={5}>
-                {comments.map(c => (
-                  <CommentCard comment={c} key={c.id} onRemove={removeComment}/>
+                {fetchingLoading ? <CircularProgress color="success" /> :
+                  comments.map(c => (
+                  <CommentCard comment={c} key={c.id} onRemove={removeComment} loading={deleteLoading}/>
                 ))}
               </Grid>
               <Grid item>
-                  <CommentsForm news_id={parseFloat(id)} onSubmit={postComment}/>
+                  <CommentsForm news_id={parseFloat(id)} onSubmit={postComment} loading={createLoading}/>
               </Grid>
           </Grid>
       }

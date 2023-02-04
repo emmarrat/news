@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField} from '@mui/material';
+import {Grid, TextField} from '@mui/material';
 import FileInput from '../../../components/UI/FileInput/FileInput';
 import {NewsFromUser} from "../../../types";
+import {LoadingButton} from "@mui/lab";
 
 interface Props {
   onSubmit: (news: NewsFromUser) => void;
+  loading: boolean;
 }
 
-const NewsForm: React.FC<Props> = ({onSubmit}) => {
+const NewsForm: React.FC<Props> = ({onSubmit, loading}) => {
   const [news, setNews] = useState<NewsFromUser>({
     title: '',
     content: '',
@@ -68,7 +70,15 @@ const NewsForm: React.FC<Props> = ({onSubmit}) => {
           />
         </Grid>
         <Grid item xs>
-          <Button type="submit" color="primary" variant="contained">Create</Button>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            loading={loading}
+            disabled={loading}
+            color="success"
+          >
+            Send
+          </LoadingButton>
         </Grid>
       </Grid>
     </form>

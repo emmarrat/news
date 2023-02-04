@@ -14,10 +14,11 @@ import {Link} from "react-router-dom";
 
 interface Props {
   news: News;
-  onRemove: (id: string) => void
+  onRemove: (id: string) => void;
+  loading: string | false;
 }
 
-const NewsCard: React.FC<Props> = ({news, onRemove}) => {
+const NewsCard: React.FC<Props> = ({news, onRemove, loading}) => {
   let cardImage = noImageAvailable;
 
   if (news.image) {
@@ -41,9 +42,22 @@ const NewsCard: React.FC<Props> = ({news, onRemove}) => {
           </CardContent>
           <CardActions>
             <Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-              <Button variant="text" component={Link} to={'/full-article/' + news.id}> Read full article <ArrowForwardIosIcon sx={{ml:2}} /></Button>
-              <Button variant="text" onClick={() => onRemove(news.id.toString())} sx={{color: 'red'}}>
-                Delete <DeleteOutlineOutlinedIcon sx={{ml:2}} />
+              <Button
+                variant="text"
+                component={Link}
+                to={'/full-article/' + news.id}
+              >
+                Read full article
+                <ArrowForwardIosIcon sx={{ml:2}}/>
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => onRemove(news.id.toString())}
+                sx={{color: 'red'}}
+                disabled={loading ? loading === news.id.toString() : false}
+              >
+                Delete
+                <DeleteOutlineOutlinedIcon sx={{ml:2}}/>
               </Button>
             </Box>
           </CardActions>

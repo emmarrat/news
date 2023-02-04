@@ -1,13 +1,15 @@
-import {Grid} from '@mui/material';
+import {CircularProgress, Grid} from '@mui/material';
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectNews} from "./newsSlice";
+import {selectFetching, selectNews, selectRemoving} from "./newsSlice";
 import {deleteNews, fetchAllNews} from "./newsThunks";
 import NewsCard from "./components/NewsCard";
 
 const News = () => {
   const dispatch = useAppDispatch();
   const news = useAppSelector(selectNews);
+  const fetchLoading = useAppSelector(selectFetching);
+  const deleteLoading = useAppSelector(selectRemoving);
 
   useEffect(() => {
     dispatch(fetchAllNews())
@@ -21,8 +23,8 @@ const News = () => {
   };
   return (
     <Grid container direction="column" alignItems="center" spacing={2}>
-      {news.map(n => (
-        <NewsCard news={n} key={n.id} onRemove={removeNews}/>
+      {fetchLoading ? <CircularProgress color="success" sx={{mt: 5}} /> : news.map(n => (
+        <NewsCard news={n} key={n.id} onRemove={removeNews} loading={deleteLoading}/>
       ))}
     </Grid>
   );

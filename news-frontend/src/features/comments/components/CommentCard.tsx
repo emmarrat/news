@@ -8,15 +8,17 @@ import {Comments} from "../../../types";
 interface Props {
   comment: Comments;
   onRemove: (commentId: string, news_id: string) => void;
+  loading: string | false;
 }
-const CommentCard: React.FC<Props> = ({comment, onRemove}) => {
+
+const CommentCard: React.FC<Props> = ({comment, onRemove, loading}) => {
   return (
     <div>
-      <Card sx={{ minWidth: '600px', mb: 3 }}>
+      <Card sx={{minWidth: '600px', mb: 3}}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {comment.author === null ?'Anonymous' : comment.author}
+            <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+              {comment.author === null ? 'Anonymous' : comment.author}
             </Typography>
             <Typography variant="subtitle1" component="div">
               {comment.text}
@@ -26,6 +28,7 @@ const CommentCard: React.FC<Props> = ({comment, onRemove}) => {
             <Button
               variant="text"
               sx={{color: 'red'}}
+              disabled={loading ? loading === comment.id.toString() : false}
               onClick={() => onRemove(comment.id.toString(), comment.news_id.toString())}
             >
               Delete
