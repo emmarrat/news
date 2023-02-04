@@ -46,6 +46,7 @@ const NewsForm: React.FC<Props> = ({onSubmit}) => {
             value={news.title}
             onChange={inputChangeHandler}
             name="title"
+            required
           />
         </Grid>
         <Grid item xs>
@@ -56,6 +57,7 @@ const NewsForm: React.FC<Props> = ({onSubmit}) => {
             name="content"
             multiline
             rows={5}
+            required
           />
         </Grid>
         <Grid item xs>

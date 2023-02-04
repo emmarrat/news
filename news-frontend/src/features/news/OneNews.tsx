@@ -7,6 +7,9 @@ import {selectOneNews} from "./newsSlice";
 import dayjs from "dayjs";
 import {apiURL} from '../../constants';
 import noImageAvailable from "../../assets/images/noImageAvailable.jpeg";
+import {fetchComments} from "../comments/commentsThunks";
+import {selectComments} from "../comments/commentsSlice";
+import CommentCard from "../comments/components/CommentCard";
 
 
 const OneNews = () => {
@@ -14,9 +17,11 @@ const OneNews = () => {
   // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const news = useAppSelector(selectOneNews);
+  const comments = useAppSelector(selectComments);
 
   useEffect(() => {
-    dispatch(fetchOneNews(id))
+    dispatch(fetchOneNews(id));
+    dispatch(fetchComments(id));
   }, [dispatch]);
 
   let cardImage = noImageAvailable;
@@ -41,8 +46,13 @@ const OneNews = () => {
                       <img src={cardImage} alt={news.title} style={{width: '250px', height: 'auto'}}/>
                   </Grid>
               </Grid>
-              <Grid item>
+              <Grid item mb={5}>
                   <Typography variant="subtitle1">{news.content}</Typography>
+              </Grid>
+              <Grid container flexDirection="column" alignItems="center">
+                {comments.map(c => (
+                  <CommentCard comment={c} key={c.id}/>
+                ))}
               </Grid>
           </Grid>
       }

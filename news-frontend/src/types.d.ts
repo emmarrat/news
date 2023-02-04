@@ -14,3 +14,10 @@ export interface NewsFromUser {
   content: string,
   image: File | null;
 }
+
+export interface Comments {
+  id: number,
+  news_id: number,
+  author: string | null,
+  text: string,
+}
