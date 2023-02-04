@@ -6,9 +6,10 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import {Comments} from "../../../types";
 
 interface Props {
-  comment: Comments
+  comment: Comments;
+  onRemove: (commentId: string, news_id: string) => void;
 }
-const CommentCard: React.FC<Props> = ({comment}) => {
+const CommentCard: React.FC<Props> = ({comment, onRemove}) => {
   return (
     <div>
       <Card sx={{ minWidth: '600px', mb: 3 }}>
@@ -22,8 +23,13 @@ const CommentCard: React.FC<Props> = ({comment}) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button variant="text" sx={{color: 'red'}}>
-              Delete <DeleteOutlineOutlinedIcon sx={{ml:2}} />
+            <Button
+              variant="text"
+              sx={{color: 'red'}}
+              onClick={() => onRemove(comment.id.toString(), comment.news_id.toString())}
+            >
+              Delete
+              <DeleteOutlineOutlinedIcon sx={{ml:2}}/>
             </Button>
           </CardActions>
         </Box>

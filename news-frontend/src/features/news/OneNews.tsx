@@ -7,7 +7,7 @@ import {selectOneNews} from "./newsSlice";
 import dayjs from "dayjs";
 import {apiURL} from '../../constants';
 import noImageAvailable from "../../assets/images/noImageAvailable.jpeg";
-import {fetchComments} from "../comments/commentsThunks";
+import {deleteComment, fetchComments} from "../comments/commentsThunks";
 import {selectComments} from "../comments/commentsSlice";
 import CommentCard from "../comments/components/CommentCard";
 
@@ -23,6 +23,13 @@ const OneNews = () => {
     dispatch(fetchOneNews(id));
     dispatch(fetchComments(id));
   }, [dispatch]);
+
+  const removeComment = async (commentId:string, news_id: string) => {
+    if (window.confirm('Please, confirm the removal of the selected comment')) {
+      await dispatch(deleteComment(commentId));
+      await dispatch(fetchComments(news_id));
+    }
+  };
 
   let cardImage = noImageAvailable;
 
@@ -51,7 +58,7 @@ const OneNews = () => {
               </Grid>
               <Grid container flexDirection="column" alignItems="center">
                 {comments.map(c => (
-                  <CommentCard comment={c} key={c.id}/>
+                  <CommentCard comment={c} key={c.id} onRemove={removeComment}/>
                 ))}
               </Grid>
           </Grid>

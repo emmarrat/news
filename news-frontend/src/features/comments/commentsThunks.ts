@@ -9,3 +9,10 @@ export const fetchComments = createAsyncThunk<Comments[], string>(
     return response.data;
   }
 );
+
+export const deleteComment = createAsyncThunk<void, string>(
+  'comments/deleteComment',
+  async (id) => {
+    await axiosApi.delete('/comments/' + id);
+  }
+);

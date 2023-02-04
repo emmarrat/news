@@ -1,7 +1,7 @@
 import {Comments} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
-import {fetchComments} from "./commentsThunks";
+import {deleteComment, fetchComments} from "./commentsThunks";
 
 interface CommentsState {
   comments: Comments[];
@@ -33,6 +33,15 @@ export const commentsSlice = createSlice({
     });
     builder.addCase(fetchComments.rejected, (state) => {
       state.fetchLoading = false;
+    });
+    builder.addCase(deleteComment.pending, (state) => {
+      state.removeLoading = false;
+    });
+    builder.addCase(deleteComment.fulfilled, (state, {meta: {arg: id}}) => {
+      state.removeLoading = id;
+    });
+    builder.addCase(deleteComment.rejected, (state) => {
+      state.removeLoading = false;
     });
   }
 });
