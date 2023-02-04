@@ -7,9 +7,11 @@ import {selectOneNews} from "./newsSlice";
 import dayjs from "dayjs";
 import {apiURL} from '../../constants';
 import noImageAvailable from "../../assets/images/noImageAvailable.jpeg";
-import {deleteComment, fetchComments} from "../comments/commentsThunks";
+import {createComment, deleteComment, fetchComments} from "../comments/commentsThunks";
 import {selectComments} from "../comments/commentsSlice";
 import CommentCard from "../comments/components/CommentCard";
+import CommentsForm from "../comments/components/CommentsForm";
+import {CommentsFromUser} from "../../types";
 
 
 const OneNews = () => {
@@ -29,6 +31,11 @@ const OneNews = () => {
       await dispatch(deleteComment(commentId));
       await dispatch(fetchComments(news_id));
     }
+  };
+
+  const postComment = async(comment: CommentsFromUser, news_id: string) => {
+    await dispatch(createComment(comment));
+    await dispatch(fetchComments(news_id));
   };
 
   let cardImage = noImageAvailable;
@@ -56,10 +63,17 @@ const OneNews = () => {
               <Grid item mb={5}>
                   <Typography variant="subtitle1">{news.content}</Typography>
               </Grid>
-              <Grid container flexDirection="column" alignItems="center">
+              <hr/>
+              <Grid item mt={5} mb={3}>
+                  <Typography variant="h6" textTransform="uppercase" textAlign="center">Comments</Typography>
+              </Grid>
+              <Grid container flexDirection="column" alignItems="center" mb={5}>
                 {comments.map(c => (
                   <CommentCard comment={c} key={c.id} onRemove={removeComment}/>
                 ))}
+              </Grid>
+              <Grid item>
+                  <CommentsForm news_id={parseFloat(id)} onSubmit={postComment}/>
               </Grid>
           </Grid>
       }

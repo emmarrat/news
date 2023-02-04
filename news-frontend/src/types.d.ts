@@ -15,9 +15,14 @@ export interface NewsFromUser {
   image: File | null;
 }
 
-export interface Comments {
-  id: number,
+export interface CommentsFromUser {
   news_id: number,
   author: string | null,
   text: string,
 }
+
+export interface Comments extends CommentsFromUser{
+  id: number,
+}
+
+

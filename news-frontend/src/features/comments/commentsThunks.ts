@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {Comments} from "../../types";
+import {Comments, CommentsFromUser} from "../../types";
 import axiosApi from "../../axiosApi";
 
 export const fetchComments = createAsyncThunk<Comments[], string>(
@@ -15,4 +15,11 @@ export const deleteComment = createAsyncThunk<void, string>(
   async (id) => {
     await axiosApi.delete('/comments/' + id);
   }
+);
+
+export const createComment = createAsyncThunk<void, CommentsFromUser>(
+  'comments/createComment',
+  async (comment) => {
+    await axiosApi.post('comments', comment);
+}
 );
