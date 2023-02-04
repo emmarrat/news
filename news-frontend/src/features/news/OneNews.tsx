@@ -30,8 +30,9 @@ const OneNews = () => {
           <Grid>
               <Grid container justifyContent="space-between" mb={4}>
                   <Grid item>
-                      <Typography component="div" variant="h5" textTransform="uppercase"
-                                  my={2}>{news.title}</Typography>
+                      <Typography variant="h5" textTransform="uppercase" my={2}>
+                        {news.title}
+                      </Typography>
                       <Typography variant="subtitle1" color="text.secondary" component="div">
                           Was published : <b> {dayjs(news.datetime).format('MMMM DD, YYYY, HH:mm')}</b>
                       </Typography>
@@ -41,7 +42,7 @@ const OneNews = () => {
                   </Grid>
               </Grid>
               <Grid item>
-                  <Typography variant="subtitle1" >{news.content}</Typography>
+                  <Typography variant="subtitle1">{news.content}</Typography>
               </Grid>
           </Grid>
       }

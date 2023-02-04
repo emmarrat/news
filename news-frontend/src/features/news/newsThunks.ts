@@ -13,7 +13,14 @@ export const fetchAllNews = createAsyncThunk<News[]>(
 export const fetchOneNews = createAsyncThunk<NewsFull, string>(
   'news/fetchOne',
   async (id) => {
-    const response = await axiosApi.get<NewsFull>('/news/'+ id);
+    const response = await axiosApi.get<NewsFull>('/news/' + id);
     return response.data;
+  }
+);
+
+export const deleteNews = createAsyncThunk<void, string>(
+  'news/delete',
+  async (id) => {
+    await axiosApi.delete('/news/' + id);
   }
 );

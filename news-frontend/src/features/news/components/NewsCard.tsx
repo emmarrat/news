@@ -14,9 +14,10 @@ import {Link} from "react-router-dom";
 
 interface Props {
   news: News;
+  onRemove: (id: string) => void
 }
 
-const NewsCard: React.FC<Props> = ({news}) => {
+const NewsCard: React.FC<Props> = ({news, onRemove}) => {
   let cardImage = noImageAvailable;
 
   if (news.image) {
@@ -41,7 +42,9 @@ const NewsCard: React.FC<Props> = ({news}) => {
           <CardActions>
             <Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
               <Button variant="text" component={Link} to={'/full-article/' + news.id}> Read full article <ArrowForwardIosIcon sx={{ml:2}} /></Button>
-              <Button variant="text" sx={{color: 'red'}}> Delete <DeleteOutlineOutlinedIcon sx={{ml:2}} /></Button>
+              <Button variant="text" onClick={() => onRemove(news.id.toString())} sx={{color: 'red'}}>
+                Delete <DeleteOutlineOutlinedIcon sx={{ml:2}} />
+              </Button>
             </Box>
           </CardActions>
         </Box>
