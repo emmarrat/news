@@ -41,18 +41,20 @@ newsRouter.post('/', imagesUpload.single('image'), async (req, res) => {
   if (!req.body.title || !req.body.content) {
     return res.status(400).send({message: 'title and content of the news are mandatory required!'});
   }
-
   const {title, content} = req.body;
   const image = req.file ? req.file.filename : null;
+  try {
+    const connection = mysqlDb.getConnection();
+    const sql = connection.format(
+      'INSERT INTO news (title, content, image) VALUES (?, ?, ?)',
+      [title, content, image]
+    );
+    const result = await connection.query(sql);
+    res.send({message: 'News was successfully posted!', info: result});
 
-  const connection = mysqlDb.getConnection();
-  const sql = connection.format(
-    'INSERT INTO news (title, content, image) VALUES (?, ?, ?)',
-    [title, content, image]
-  );
-  const result = await connection.query(sql);
-
-  res.send({message: 'News was successfully posted!', info: result});
+  } catch (e) {
+    res.status(400).send({message: "Error!", errorInfo: e});
+  }
 });
 
 newsRouter.delete('/:id', async (req, res) => {

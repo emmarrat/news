@@ -23,7 +23,7 @@ CREATE TABLE comments
         PRIMARY KEY (id),
     CONSTRAINT comments_news_id_fk
         FOREIGN KEY (news_id) REFERENCES news (id)
-            ON DELETE RESTRICT
+            ON DELETE CASCADE
             ON UPDATE CASCADE
 );
 

@@ -9,3 +9,9 @@ export interface NewsFull extends News {
   content: string;
 }
 
+export interface Comment {
+  id: number,
+  news_id: number,
+  author: string,
+  text: string,
+}
