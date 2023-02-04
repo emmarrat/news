@@ -8,6 +8,11 @@ const theme = createTheme({
         fullWidth: true,
       }
     }
+  },
+  palette: {
+    primary: {
+      main: '#7dbe69'
+    }
   }
 });
 
