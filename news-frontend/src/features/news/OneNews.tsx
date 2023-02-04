@@ -46,6 +46,26 @@ const OneNews = () => {
     await dispatch(fetchComments(news_id));
   };
 
+  let commentsContent = (
+    <>
+      <Grid item mt={5} mb={3}>
+        <Typography variant="h6" textTransform="uppercase" textAlign="center">Comments:</Typography>
+      </Grid>
+      {fetchingLoading ? <CircularProgress color="success" /> :
+        comments.map(c => (
+          <CommentCard comment={c} key={c.id} onRemove={removeComment} loading={deleteLoading}/>
+        ))}
+    </>
+  );
+
+  if(comments.length === 0) {
+    commentsContent = (
+      <Typography variant="h5" textAlign="center" my={2}>
+       No comments under this article :(
+      </Typography>
+    )
+  }
+
   let cardImage = noImageAvailable;
 
   if (news && news.image !== null) {
@@ -65,21 +85,15 @@ const OneNews = () => {
                       </Typography>
                   </Grid>
                   <Grid item mr={5}>
-                      <img src={cardImage} alt={news.title} style={{width: '250px', height: 'auto'}}/>
+                      <img src={cardImage} alt={news.title} style={{width: '250px', height: 'auto', borderRadius: '10px'}}/>
                   </Grid>
               </Grid>
               <Grid item mb={5}>
                   <Typography variant="subtitle1">{news.content}</Typography>
               </Grid>
               <hr/>
-              <Grid item mt={5} mb={3}>
-                  <Typography variant="h6" textTransform="uppercase" textAlign="center">Comments</Typography>
-              </Grid>
               <Grid container flexDirection="column" alignItems="center" mb={5}>
-                {fetchingLoading ? <CircularProgress color="success" /> :
-                  comments.map(c => (
-                  <CommentCard comment={c} key={c.id} onRemove={removeComment} loading={deleteLoading}/>
-                ))}
+                {commentsContent}
               </Grid>
               <Grid item>
                   <CommentsForm news_id={parseFloat(id)} onSubmit={postComment} loading={createLoading}/>

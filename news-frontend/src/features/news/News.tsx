@@ -1,4 +1,4 @@
-import {CircularProgress, Grid} from '@mui/material';
+import {CircularProgress, Grid, Typography} from '@mui/material';
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectFetching, selectNews, selectRemoving} from "./newsSlice";
@@ -21,11 +21,25 @@ const News = () => {
       await dispatch(fetchAllNews())
     }
   };
-  return (
-    <Grid container direction="column" alignItems="center" spacing={2}>
+
+  let newsList = (
+    <>
       {fetchLoading ? <CircularProgress color="success" sx={{mt: 5}} /> : news.map(n => (
         <NewsCard news={n} key={n.id} onRemove={removeNews} loading={deleteLoading}/>
       ))}
+    </>
+  );
+
+  if(news.length === 0) {
+    newsList = (
+      <Typography variant="h5" textAlign="center" my={5}>
+        No articles! Please add new!
+      </Typography>
+    )
+  }
+  return (
+    <Grid container direction="column" alignItems="center" spacing={2}>
+      {newsList}
     </Grid>
   );
 };

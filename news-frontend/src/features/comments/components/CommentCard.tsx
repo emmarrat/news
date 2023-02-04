@@ -18,7 +18,7 @@ const CommentCard: React.FC<Props> = ({comment, onRemove, loading}) => {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <CardContent>
             <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-              {comment.author === null ? 'Anonymous' : comment.author}
+             Author:  {comment.author === null ? 'Anonymous' : comment.author}
             </Typography>
             <Typography variant="subtitle1" component="div">
               {comment.text}
