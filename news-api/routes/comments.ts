@@ -11,7 +11,8 @@ commentsRouter.get('/', async (req, res) => {
 
   if (queryNews) {
     result = await connection.query(
-      `SELECT comments.*, news.id FROM comments, news WHERE comments.news_id = ${queryNews} and news.id = ${queryNews}`)
+      `SELECT * FROM comments WHERE news_id = ?`,
+      [queryNews]);
   }
   const commentsList = result[0] as Comment[];
 
