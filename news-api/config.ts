@@ -9,7 +9,7 @@ const config = {
     host:'localhost',
     user: 'root',
     password: '1qaz@WSX29',
-    database: 'stocktaking'
+    database: 'news'
   },
 };
 
