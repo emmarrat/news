@@ -13,7 +13,7 @@ interface Props {
 
 const CommentCard: React.FC<Props> = ({comment, onRemove, loading}) => {
   return (
-    <div>
+    <>
       <Card sx={{minWidth: '600px', mb: 3}}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <CardContent>
@@ -37,7 +37,7 @@ const CommentCard: React.FC<Props> = ({comment, onRemove, loading}) => {
           </CardActions>
         </Box>
       </Card>
-    </div>
+    </>
   );
 };
 

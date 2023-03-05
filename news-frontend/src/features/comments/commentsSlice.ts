@@ -22,7 +22,6 @@ export const commentsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-
     builder.addCase(fetchComments.pending, (state) => {
       state.fetchLoading = true;
       state.comments = [];

@@ -12,13 +12,13 @@ const News = () => {
   const deleteLoading = useAppSelector(selectRemoving);
 
   useEffect(() => {
-    dispatch(fetchAllNews())
+    dispatch(fetchAllNews());
   }, [dispatch]);
 
   const removeNews = async (id: string) => {
     if (window.confirm('Please, confirm the removal of the selected news')) {
       await dispatch(deleteNews(id));
-      await dispatch(fetchAllNews())
+      await dispatch(fetchAllNews());
     }
   };
 

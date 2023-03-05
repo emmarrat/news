@@ -63,7 +63,7 @@ const OneNews = () => {
       <Typography variant="h5" textAlign="center" my={2}>
         No comments under this article :(
       </Typography>
-    )
+    );
   }
 
   let cardImage = noImageAvailable;
