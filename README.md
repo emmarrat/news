@@ -19,7 +19,7 @@ TypeScript, Node.js, Express.js, mySQL, Multer, React, Axios, Redux-Toolkit, Rea
     If you have installed mySQL:
 
     2.1. In query console run all commands from file api/database.sql
-    2.2. Change user and password ingo in api/config.ts
+    2.2. Change user and password info in api/config.ts
     2.3. Install all necessary dependencies: via npm i
     2.4. Start server via: npm run dev
 
